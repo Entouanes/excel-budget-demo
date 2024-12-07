@@ -1,23 +1,22 @@
-import os
-from summary_generator import summary
-from data_extractor import Report
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
 
 
-async def main():
-    file_name = "Contoso_Annual_Financial_Report_2022.xlsx"
-    file_path = os.path.join("data", file_name)
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: Union[bool, None] = None
 
-    if not os.path.exists(file_path):
-        return f"File not found: {file_path}"
-    
-    # Extract data from the report
-    report = Report(file_path)
-    report_text = report.get_report()
 
-    title, summary_text = await summary(report_text)
-    print("Title:", title)
-    print(summary_text)
+@app.get("/")
+def read_root():
+    return {"status": "UP"}
 
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+
+@app.put("/items/{item_id}")
+def update_item(item_id: int, item: Item):
+    return {"item_name": item.name, "item_id": item_id}

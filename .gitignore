@@ -2,3 +2,4 @@
 sandbox/
 .vscode/
 node_modules/
+.venv/

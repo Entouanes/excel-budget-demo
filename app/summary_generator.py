@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def azure_openai_settings_from_dot_env():
     deployment_name = os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME")
     api_key = os.getenv("AZURE_OPENAI_API_KEY")
@@ -16,20 +17,22 @@ def azure_openai_settings_from_dot_env():
     return deployment_name, api_key, endpoint
 
 
-async def summary(report : str):
+async def summary(report: str):
     deployment_name, api_key, endpoint = azure_openai_settings_from_dot_env()
 
     chat_completion_service = AzureChatCompletion(
-        deployment_name=deployment_name,  
+        deployment_name=deployment_name,
         api_key=api_key,
         endpoint=endpoint,
-        service_id="financial-report"
+        service_id="financial-report",
     )
 
     kernel = sk.Kernel()
     kernel.add_service(chat_completion_service)
 
-    arguments = KernelArguments(report=report, settings=PromptExecutionSettings(max_tokens=5000))
+    arguments = KernelArguments(
+        report=report, settings=PromptExecutionSettings(max_tokens=5000)
+    )
     analysis = """
         You are a financial analyst.
         You review financial reports and craft accurate executive summaries.
@@ -40,14 +43,19 @@ async def summary(report : str):
         Here is the collection of tables you should analyze: {{$report}}
         """
     summary = await kernel.invoke_prompt(
-        function_name="sample_zero", plugin_name="sample_plugin", prompt=analysis, arguments=arguments
+        function_name="sample_zero",
+        plugin_name="sample_plugin",
+        prompt=analysis,
+        arguments=arguments,
     )
 
     title = await kernel.invoke_prompt(
-        function_name="sample_zero", 
-        plugin_name="sample_plugin", 
-        prompt="Find a title for this report: {{$report}}", 
-        arguments=KernelArguments(report=report, settings=PromptExecutionSettings(max_tokens=500))
+        function_name="sample_zero",
+        plugin_name="sample_plugin",
+        prompt="Find a title for this report: {{$report}}",
+        arguments=KernelArguments(
+            report=report, settings=PromptExecutionSettings(max_tokens=500)
+        ),
     )
 
     return title, summary
