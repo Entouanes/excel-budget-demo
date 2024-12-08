@@ -22,4 +22,4 @@ def read_root():
 
 @app.post("/summarize/")
 def update_item(file: UploadFile = File(...), text: str = Form(None)):
-    return {"summary": "This is a summary"}
+    return {"summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}

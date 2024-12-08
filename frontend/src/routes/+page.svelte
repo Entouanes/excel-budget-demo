@@ -2,8 +2,8 @@
     import { enhance } from "$app/forms";
 
     // Explicitly type your variables
-    let summary: string | null = "No file analysed yet.";
-    let loading: boolean = false;
+    let summary: string | null = $state("No file analysed yet.");
+    let loading: boolean = $state(false);
 
     async function handleSubmit({ formData }: { formData: FormData }): Promise<void> {
         loading = true;
