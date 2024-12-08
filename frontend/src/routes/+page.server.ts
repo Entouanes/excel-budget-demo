@@ -9,11 +9,16 @@ export const actions = {
             method: 'POST',
             body: formData
         });
+        
+        // Sleep 1 second to simulate a long running task
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
         if (response.ok) {
-            return { success: true };
+            const data = await response.json();
+            return { success: true, data };
         } else {
-            return { success: false };
+            const error = await response.json();
+            return { success: false, error };
         }
 	},
 } satisfies Actions;

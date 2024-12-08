@@ -15,17 +15,11 @@ app.add_middleware(
 )
 
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
-
-
 @app.get("/")
 def read_root():
     return {"status": "up"}
 
 
-@app.put("/summarize/")
+@app.post("/summarize/")
 def update_item(file: UploadFile = File(...), text: str = Form(None)):
-    return {"filename": file.filename, "text": text}
+    return {"summary": "This is a summary"}
