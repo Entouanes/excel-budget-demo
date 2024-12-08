@@ -1,9 +1,18 @@
 from typing import Union
 
-from fastapi import FastAPI
+from fastapi import FastAPI, File, Form, UploadFile
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Frontend origin
+    allow_methods=["POST"],  # Allow POST requests
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 class Item(BaseModel):
@@ -14,9 +23,9 @@ class Item(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"status": "UP"}
+    return {"status": "up"}
 
 
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.put("/summarize/")
+def update_item(file: UploadFile = File(...), text: str = Form(None)):
+    return {"filename": file.filename, "text": text}

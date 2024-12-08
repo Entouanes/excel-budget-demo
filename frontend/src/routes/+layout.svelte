@@ -3,7 +3,7 @@
 	let { children } = $props();
 </script>
 
-<div class="navbar bg-base-200 px-10 shadow-lg h-20">
+<div class="navbar bg-base-200 px-10 shadow-md h-20">
 	<div class="navbar-start">
 		<h1 class="text-xl font-bold">SummaRise</h1>
 	</div>
