@@ -46,7 +46,7 @@
                 />
                 <p>Optionally, provide additional information to guide the generator</p>    
                 <textarea 
-                    class="textarea textarea-bordered h-52" 
+                    class="textarea textarea-bordered h-32" 
                     placeholder="Format the output as follow..." 
                     disabled={loading}
                     id="text"
