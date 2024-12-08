@@ -15,6 +15,7 @@ export const actions = {
 
         if (response.ok) {
             const data = await response.json();
+            console.log(data);
             return { success: true, data };
         } else {
             const error = await response.json();
