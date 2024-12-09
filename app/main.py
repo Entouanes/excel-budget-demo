@@ -25,7 +25,7 @@ async def read_root():
 @app.post("/summarize/")
 async def update_item(file: UploadFile = File(...), text: str = Form(None)):
     try:
-        title, summary = await get_summary(file.file)
+        title, summary = await get_summary(file.file, text)
         return {"summary": summary, "title": title}
     except Exception as e:
         return {"summary": str(e)}

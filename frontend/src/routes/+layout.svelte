@@ -11,6 +11,6 @@
 		<a href="/" class="btn btn-outline">Settings</a>
 	</div>
 </div>
-<div class="container w-2/3 mx-auto my-[5rem] justify-around gap-[3rem] flex">
+<div class="container w-3/4 mx-auto my-[5rem] justify-around gap-[3rem] flex">
 	{@render children()}
 </div>

@@ -12,7 +12,7 @@ export default {
 	},
 
 	daisyui: {
-		themes: ["light", "corporate"]
+		themes: ["light", "corporate", "emerald"]
 	},
 
 	plugins: [typography, forms, containerQueries, daisyui]

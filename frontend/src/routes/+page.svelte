@@ -39,12 +39,12 @@
                     type="file" 
                     id="file" 
                     name="file"
-                    class="file-input file-input-bordered w-full" 
+                    class="file-input file-input-bordered w-full file-input-primary" 
                     disabled={loading}
                 />
-                <p>Optionally, provide additional information to guide the generator</p>    
+                <p>Additional information to guide the generator:</p>    
                 <textarea 
-                    class="textarea textarea-bordered h-32" 
+                    class="textarea textarea-bordered textarea-md" 
                     placeholder="Format the output as follow..." 
                     disabled={loading}
                     id="text"
@@ -52,9 +52,9 @@
                 ></textarea>
                 <div class="card-actions">
                     {#if !loading}
-                        <button class="btn btn-neutral" type="submit">SUMMARIZE</button>
+                        <button class="btn btn-primary" type="submit">SUMMARIZE</button>
                     {:else}
-                        <button class="btn btn-neutral" disabled>
+                        <button class="btn btn-primary" disabled>
                             <span class="loading loading-spinner loading-sm"></span>
                             SUMMARIZE
                         </button>
@@ -67,10 +67,10 @@
 
 <div class="card bg-base-200 w-2/3 shadow-lg h-full">
     <div class="card-body space-y-3">
-        <h1 class="card-title">File summary</h1>
+        <h1 class="card-title">{title}</h1>
         {#if !loading}
             <div 
-                class="rounded-md p-5 bg-base-100 w-full" 
+                class="rounded-md text-md p-5 bg-base-100 w-full" 
             >
                 {summary}
             </div>
