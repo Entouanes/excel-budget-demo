@@ -17,7 +17,7 @@ def azure_openai_settings_from_dot_env():
     return deployment_name, api_key, endpoint
 
 
-async def summary(report: str):
+async def summary(report):
     deployment_name, api_key, endpoint = azure_openai_settings_from_dot_env()
 
     chat_completion_service = AzureChatCompletion(
@@ -52,10 +52,10 @@ async def summary(report: str):
     title = await kernel.invoke_prompt(
         function_name="sample_zero",
         plugin_name="sample_plugin",
-        prompt="Find a title for this report: {{$report}}",
+        prompt="Find a catchy title for this report: {{$report}}",
         arguments=KernelArguments(
             report=report, settings=PromptExecutionSettings(max_tokens=500)
         ),
     )
 
-    return title, summary
+    return title.value[0].items[0].text, summary.value[0].items[0].text

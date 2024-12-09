@@ -3,6 +3,7 @@
 
     // Explicitly type your variables
     let summary: string | null = $state("No file analysed yet.");
+    let title: string | null = $state("Summary title");
     let loading: boolean = $state(false);
 
     async function handleSubmit({ formData }: { formData: FormData }): Promise<void> {
@@ -12,14 +13,11 @@
             method: 'POST',
             body: formData
         });
-
-        // Simulate a long-running task
-        await new Promise(resolve => setTimeout(resolve, 2000));
         
         if (response.ok) {
             const data = await response.json();
-            console.log(data.summary);
             summary = typeof data.summary === 'string' ? data.summary : JSON.stringify(data.summary);
+            title = data.title;
         } else {
             const error = await response.json();
             summary = "An error occurred.";
