@@ -17,9 +17,11 @@ def azure_openai_settings_from_dot_env():
     return deployment_name, api_key, endpoint
 
 
-async def summary(report, constraints=None):
+async def generate_summary(report, constraints=None):
+    # Retrieve Azure OpenAI settings from the .env file
     deployment_name, api_key, endpoint = azure_openai_settings_from_dot_env()
 
+    # Initialize the AzureChatCompletion service with the retrieved settings
     chat_completion_service = AzureChatCompletion(
         deployment_name=deployment_name,
         api_key=api_key,
@@ -27,14 +29,22 @@ async def summary(report, constraints=None):
         service_id="financial-report",
     )
 
+    # Create a new semantic kernel instance
     kernel = sk.Kernel()
+    # Add the chat completion service to the kernel
     kernel.add_service(chat_completion_service)
 
+    # Prepare the arguments for the kernel invocation
     arguments = KernelArguments(
-        report=report, settings=PromptExecutionSettings(max_tokens=5000), constraints=constraints
+        report=report, 
+        settings=PromptExecutionSettings(max_tokens=5000), 
+        constraints=constraints
     )
 
+    # Print the constraints for debugging purposes
     print(constraints)
+
+    # Define the prompt for the financial report analysis
     analysis = """
         You are a financial analyst.
         You review financial reports and craft accurate executive summaries.
@@ -45,6 +55,8 @@ async def summary(report, constraints=None):
         If specified, take the following constraint into consideration: {{$constraints}}.
         Here is the collection of tables you should analyze: {{$report}}.
         """
+
+    # Invoke the kernel with the analysis prompt to generate the summary
     summary = await kernel.invoke_prompt(
         function_name="sample_zero",
         plugin_name="sample_plugin",
@@ -52,6 +64,7 @@ async def summary(report, constraints=None):
         arguments=arguments,
     )
 
+    # Invoke the kernel again to generate a title for the summary
     title = await kernel.invoke_prompt(
         function_name="sample_zero",
         plugin_name="sample_plugin",

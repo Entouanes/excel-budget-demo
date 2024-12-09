@@ -4,7 +4,8 @@ from fastapi import FastAPI, File, Form, UploadFile
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-from utils.get_summary import get_summary
+from utils.summary_generator import generate_summary
+from utils.report import Report
 
 
 app = FastAPI()
@@ -23,10 +24,18 @@ async def read_root():
 
 
 @app.post("/summarize/")
-async def update_item(file: UploadFile = File(...), text: str = Form(None)):
+async def update_item(file: UploadFile = File(...), constraints: str = Form(None)):
     try:
-        title, summary = await get_summary(file.file, text)
-        return {"summary": summary, "title": title}
+        # Extract data from the report as a string
+        report = Report(file.file)
+        report_str = report.get_report()
+
+        try:
+            title, summary = await generate_summary(report_str, constraints)
+            return {"summary": summary, "title": title}
+        
+        except Exception as e:
+            return {"summary": str(e)}
+        
     except Exception as e:
         return {"summary": str(e)}
-    

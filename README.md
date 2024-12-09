@@ -1,6 +1,9 @@
 # Excel GPT Demo
 
-This project demonstrates the integration of GPT with Excel. It provides a basis for exploring functionalities of semantic kernels and LLM-based apps. Follow the instructions below to install the requirements for both the backend and frontend, and to run the application.
+This project demonstrates the integration of GPT with Excel. It provides a basis for exploring functionalities of semantic kernels and LLM-based apps. Uppon submission of a excel-based financial report, the model will generate a summary outlining the main trends. 
+
+
+Follow the instructions below to install the requirements for both the backend and frontend, and to run the application.
 
 ## Prerequisites
 
