@@ -47,8 +47,8 @@
                     class="textarea textarea-bordered textarea-md" 
                     placeholder="Format the output as follow..." 
                     disabled={loading}
-                    id="text"
-                    name="text"
+                    id="constraints"
+                    name="constraints"
                 ></textarea>
                 <div class="card-actions">
                     {#if !loading}
