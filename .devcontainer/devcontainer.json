@@ -16,7 +16,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "conda install --yes --file requirements.txt"
+	"postCreateCommand": "cd app && pip install -r requirements.txt"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
