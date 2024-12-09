@@ -7,6 +7,28 @@ This project demonstrates the integration of GPT with Excel. It provides a basis
 - Python 3.8 or higher
 - Node.js 14 or higher
 - npm (Node Package Manager)
+- LLM model deployement on [Azure AI Foundry](https://www.ai.azure.com)
+
+## Setting Up the .env File
+
+To configure the application to use an LLM model with Azure OpenAI, you need to set up a `.env` file in the backend directory. This file will contain the API endpoint, key, and deployment name for the model.
+
+1. Create a `.env` file in the backend directory:
+    ```sh
+    cd backend
+    touch .env
+    ```
+
+2. Open the `.env` file in a text editor and add the following lines, replacing the placeholders with your actual Azure OpenAI credentials:
+    ```env
+    AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<your_deployment_name>
+    AZURE_OPENAI_API_KEY=<your_api_key>
+    AZURE_OPENAI_ENDPOINT=<your_api_endpoint>
+    ```
+
+3. Save and close the `.env` file.
+
+The backend application will now be able to read these environment variables and use them to interact with the Azure OpenAI service.
 
 ## Backend Installation
 
